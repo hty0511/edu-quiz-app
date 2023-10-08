@@ -1,0 +1,45 @@
+post:
+  tags:
+    - cpp-quiz
+  summary: Create a CppQuizProgress
+  operationId: createCppQuizProgress
+  security:
+    - BearerAuth: [] # 這標明這個路徑需要 JWT 認證和管理員權限
+  requestBody:
+    required: true
+    description: CppQuizProgress information
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/cpp-quiz-progress.yaml'
+  responses:
+    '201':
+      description: CppQuizProgress created successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Confirmation message for CppQuizProgress creation.
+    '400':
+      description: Failed to create CppQuizProgress
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message for failed CppQuizProgress creation.
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Unauthorized or invalid token provided.

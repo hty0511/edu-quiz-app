@@ -1,0 +1,31 @@
+openapi: 3.0.3
+info:
+  title: Main API Documentation
+  description: Central documentation entry for the API.
+  version: 1.0.0
+
+paths:
+  /express-api/users/:
+    $ref: './paths/users/create.yaml'
+  /express-api/users/login:
+    $ref: './paths/users/login.yaml'
+  /express-api/users/logout:
+    $ref: './paths/users/logout.yaml'
+  /express-api/users/me/password:
+    $ref: './paths/users/change-password.yaml'
+  /express-api/cpp-quizzes/progresses:
+    $ref: './paths/cpp-quizzes/progress.yaml'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      $ref: './components/schemas/user.yaml'
+    CppQuizProgress:
+      $ref: './components/schemas/cpp-quiz-progress.yaml'
+# swagger-cli bundle -r main.yaml -o bundled.yaml -t yaml

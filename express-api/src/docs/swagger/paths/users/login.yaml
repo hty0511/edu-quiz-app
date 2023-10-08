@@ -1,0 +1,43 @@
+post:
+  tags:
+    - user
+  summary: Login a user
+  operationId: login
+  requestBody:
+    required: true
+    description: User credentials
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - username
+            - password
+          properties:
+            username:
+              type: string
+              description: The username of the user.
+            password:
+              type: string
+              description: The password of the user.
+  responses:
+    '200':
+      description: Login successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+                description: JWT token for the authenticated user.
+    '400':
+      description: Unable to login
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message for failed login attempt.

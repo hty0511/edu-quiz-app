@@ -1,0 +1,48 @@
+post:
+  tags:
+    - user
+  summary: Create a user
+  operationId: createUser
+  security:
+    - BearerAuth: [] # 這標明這個路徑需要使用在 `securitySchemes` 中描述的 JWT 認證
+  requestBody:
+    description: User information
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/user.yaml'
+    required: true
+  responses:
+    '201':
+      description: User created successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: The ID of the created user.
+              message:
+                type: string
+                description: Confirmation message for user creation.
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message for failed user creation.
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Unauthorized or invalid token provided.

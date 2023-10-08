@@ -1,0 +1,38 @@
+post:
+  tags:
+    - user
+  summary: Logout a user
+  operationId: logout
+  security:
+    - BearerAuth: []
+  responses:
+    '200':
+      description: Logged out successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Confirmation message for user logout.
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Unauthorized or invalid token provided.
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Description of the internal server error.
