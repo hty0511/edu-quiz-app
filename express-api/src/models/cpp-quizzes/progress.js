@@ -41,14 +41,13 @@ CppQuizProgress.init(
     // Group categorization for the user
     group: {
       type: DataTypes.ENUM(
-        'NOT_SPECIFIED',
         'CONTROL',
         'NON_ADAPTIVE',
         'ADAPTIVE',
         'EXCLUDED',
       ),
       allowNull: false,
-      defaultValue: 'NOT_SPECIFIED',
+      defaultValue: 'CONTROL',
     },
   },
   {
