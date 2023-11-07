@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/users/user');
 const { JWT_SECRET } = require('../config');
-const logger = require('../utils/logger');
 
 // Middleware for JWT-based authentication
 const auth = async (req, res, next) => {
@@ -17,9 +16,8 @@ const auth = async (req, res, next) => {
 
     req.user = user;
     next();
-  } catch (e) {
-    logger.error(`JWT authentication failed: ${e.message || e.toString()}`);
-    res.status(401).send({ error: 'Please authenticate.' });
+  } catch (error) {
+    next(error);
   }
 };
 
