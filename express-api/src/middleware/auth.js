@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/users/user');
 const { JWT_SECRET } = require('../config');
+const UnauthorizedError = require('../errors/unauthorized-error');
 
 // Middleware for JWT-based authentication
 const auth = async (req, res, next) => {
@@ -12,7 +13,7 @@ const auth = async (req, res, next) => {
       where: { id: decoded.id, token },
     });
 
-    if (!user) throw new Error('User not found.');
+    if (!user) throw new UnauthorizedError();
 
     req.user = user;
     next();

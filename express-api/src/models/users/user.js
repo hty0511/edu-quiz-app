@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 
 const { sequelize } = require('../../db/sequelize');
 const { JWT_SECRET } = require('../../config');
+const UnauthorizedError = require('../../errors/unauthorized-error');
 
 // Sequelize model for the User entity
 class User extends Model {
@@ -69,11 +70,11 @@ User.init(
 User.authenticate = async function authenticate(username, password) {
   const user = await User.findOne({ where: { username } });
 
-  if (!user) throw new Error('User not found.');
+  if (!user) throw new UnauthorizedError('Authentication failed. Please check your credentials.');
 
   const isMatch = await bcrypt.compare(password, user.password);
 
-  if (!isMatch) throw new Error('Username and password not match.');
+  if (!isMatch) throw new UnauthorizedError('Authentication failed. Please check your credentials.');
 
   return user;
 };
