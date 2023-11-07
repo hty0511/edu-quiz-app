@@ -9,6 +9,7 @@ const {
   ADMIN_PASSWORD,
   HOST = '0.0.0.0', // Default to '0.0.0.0' if not provided
   PORT = 3000, // Default to 3000 if not provided
+  SESSION_SECRET,
 } = process.env;
 
 // Check if all required environment variables are set
@@ -20,6 +21,7 @@ if (
   || !JWT_SECRET
   || !ADMIN_USERNAME
   || !ADMIN_PASSWORD
+  || !SESSION_SECRET
 ) throw new Error('Missing essential environment variables.');
 
 // Export the extracted environment variables for use in the application
@@ -33,4 +35,5 @@ module.exports = {
   ADMIN_PASSWORD,
   HOST,
   PORT,
+  SESSION_SECRET,
 };
