@@ -13,4 +13,21 @@ exports.createCppQuizProgress = async (req, res) => {
   }
 };
 
-// exports.resetAllCppQuizProgress
+// Reset all CppQuizProgress entries to their initial state.
+exports.resetAllCppQuizProgress = async (req, res) => {
+  try {
+    await CppQuizProgress.update(
+      {
+        currentRound: 1,
+        currentQuestion: 'Q1',
+      },
+      {
+        where: {},
+      },
+    );
+    res.send({ message: 'All progresses reset successfully.' });
+  } catch (e) {
+    logger.error(`Error during reset all progresses: ${e.message || e.toString()}`);
+    res.status(400).send({ error: 'Failed to reset all progresses.' });
+  }
+};
