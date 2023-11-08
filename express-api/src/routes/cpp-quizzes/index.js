@@ -1,10 +1,14 @@
 const express = require('express');
 
-const progressesRouter = require('./progress');
+const auth = require('../../middleware/auth');
+const checkAdmin = require('../../middleware/check-admin');
+const {
+  createCppQuizProgress,
+} = require('../../controllers/cpp-quizzes/progress');
 
 const router = express.Router();
 
-// Mounting the routers
-router.use('/progresses', progressesRouter);
+// Progress routes
+router.post('/progresses', auth, checkAdmin, createCppQuizProgress);
 
 module.exports = router;
