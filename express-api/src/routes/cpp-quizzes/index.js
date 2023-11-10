@@ -16,6 +16,7 @@ const {
   createUserAnswerQ1,
   createUserAnswerQ1Feedback,
   createUserAnswerQ1Discussion,
+  createUserAnswerQ2,
 } = require('../../controllers/cpp-quizzes/answer');
 
 const router = express.Router();
@@ -53,6 +54,15 @@ router.post(
   checkPeerInteractionFormat,
   initTransaction,
   createUserAnswerQ1Discussion,
+);
+router.post(
+  '/answers/q2',
+  auth,
+  checkRoundStatus,
+  checkCurrentQuestion,
+  checkAnswersFormat,
+  initTransaction,
+  createUserAnswerQ2,
 );
 
 module.exports = router;
