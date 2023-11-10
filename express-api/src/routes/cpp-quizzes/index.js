@@ -8,6 +8,7 @@ const checkAnswersFormat = require('../../middleware/cpp-quizzes/check-answers-f
 const assignRandomGroup = require('../../middleware/cpp-quizzes/assign-random-group');
 const initTransaction = require('../../middleware/cpp-quizzes/transaction');
 const checkPeerInteractionFormat = require('../../middleware/cpp-quizzes/check-peer-interaction-format');
+const checkThirdQuestionStatus = require('../../middleware/cpp-quizzes/check-third-question-status');
 const {
   createCppQuizProgress,
   resetAllCppQuizProgress,
@@ -17,6 +18,7 @@ const {
   createUserAnswerQ1Feedback,
   createUserAnswerQ1Discussion,
   createUserAnswerQ2,
+  createUserAnswerQ3,
 } = require('../../controllers/cpp-quizzes/answer');
 
 const router = express.Router();
@@ -63,6 +65,16 @@ router.post(
   checkAnswersFormat,
   initTransaction,
   createUserAnswerQ2,
+);
+router.post(
+  '/answers/q3',
+  auth,
+  checkRoundStatus,
+  checkThirdQuestionStatus,
+  checkCurrentQuestion,
+  checkAnswersFormat,
+  initTransaction,
+  createUserAnswerQ3,
 );
 
 module.exports = router;
