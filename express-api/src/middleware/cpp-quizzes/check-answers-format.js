@@ -18,17 +18,7 @@ const checkAnswersFormat = async (req, res, next) => {
 
     if (!question) throw new NotFoundError('Question not found.');
 
-    // Check if the number of answers provided matches the expected count.
-    if (_.size(answers) !== question.answersCount) {
-      throw new ClientError('Incorrect number of answers provided.');
-    }
-
-    // Validate the keys of the answers. They should be '1', '2', ... up to 'question.answersCount'.
-    const expectedKeys = Array.from(
-      { length: question.answersCount },
-      (unused, i) => (i + 1).toString(),
-    );
-    if (!_.isEqual(_.keys(answers).sort(), expectedKeys)) {
+    if (!_.isEqual(_.keys(answers).sort(), _.keys(question.correctAnswers).sort())) {
       throw new ClientError('Invalid answers keys.');
     }
 
