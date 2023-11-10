@@ -20,6 +20,9 @@ const {
   createUserAnswerQ2,
   createUserAnswerQ3,
 } = require('../../controllers/cpp-quizzes/answer');
+const {
+  createQuestion,
+} = require('../../controllers/cpp-quizzes/question');
 
 const router = express.Router();
 
@@ -76,5 +79,8 @@ router.post(
   initTransaction,
   createUserAnswerQ3,
 );
+
+// Question routes
+router.post('/questions', auth, checkAdmin, createQuestion);
 
 module.exports = router;
