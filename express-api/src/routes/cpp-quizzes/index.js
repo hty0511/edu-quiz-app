@@ -13,6 +13,7 @@ const {
 } = require('../../controllers/cpp-quizzes/progress');
 const {
   createUserAnswerQ1,
+  createUserAnswerQ1Feedback,
 } = require('../../controllers/cpp-quizzes/answer');
 
 const router = express.Router();
@@ -31,6 +32,15 @@ router.post(
   assignRandomGroup,
   initTransaction,
   createUserAnswerQ1,
+);
+router.post(
+  '/answers/q1-feedback',
+  auth,
+  checkRoundStatus,
+  checkCurrentQuestion,
+  checkAnswersFormat,
+  initTransaction,
+  createUserAnswerQ1Feedback,
 );
 
 module.exports = router;
