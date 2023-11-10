@@ -1,16 +1,8 @@
 const _ = require('lodash');
 
-const Question = require('../../models/cpp-quizzes/question');
+const getCurrentQuestion = require('../../utils/cpp-quizzes/get-current-question');
 const ClientError = require('../../errors/client-error');
 const NotFoundError = require('../../errors/not-found-error');
-
-const QUESTION_MAPPING = {
-  Q1: 1,
-  Q1_FEEDBACK: 1,
-  Q1_DISCUSSION: 1,
-  Q2: 2,
-  Q3: 3,
-};
 
 // Middleware to validate the format of answers submitted by the user.
 const checkAnswersFormat = async (req, res, next) => {
@@ -21,20 +13,8 @@ const checkAnswersFormat = async (req, res, next) => {
       throw new ClientError('Answers format should be an object.');
     }
 
-    const { year, semester, week } = req.globalSetting;
-    const { currentRound, currentQuestion } = req.cppQuizProgress;
-
     // Retrieve the corresponding question from the database.
-    const question = await Question.findOne({
-      where: {
-        year,
-        semester,
-        week,
-        round: currentRound,
-        number: QUESTION_MAPPING[currentQuestion],
-      },
-      attributes: ['id', 'correctAnswers', 'answersCount'],
-    });
+    const question = await getCurrentQuestion(req);
 
     if (!question) throw new NotFoundError('Question not found.');
 
