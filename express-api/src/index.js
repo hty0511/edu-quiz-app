@@ -28,11 +28,11 @@ app.use(session({
 
 // Load and setup Swagger documentation
 const swaggerDocument = YAML.load(join(__dirname, './docs/swagger/bundled.yaml'));
-app.use('/express-api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Attach routers
-app.use('/express-api/users', usersRouter);
-app.use('/express-api/cpp-quizzes', cppQuizzesRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/cpp-quizzes', cppQuizzesRouter);
 
 // Global error handler middleware
 app.use(errorHandler);
