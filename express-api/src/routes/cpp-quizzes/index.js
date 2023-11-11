@@ -22,6 +22,7 @@ const {
 } = require('../../controllers/cpp-quizzes/answer');
 const {
   createQuestion,
+  getCurrentQuestionInfo,
 } = require('../../controllers/cpp-quizzes/question');
 
 const router = express.Router();
@@ -82,5 +83,12 @@ router.post(
 
 // Question routes
 router.post('/questions', auth, checkAdmin, createQuestion);
+router.get(
+  '/questions/current',
+  auth,
+  checkRoundStatus,
+  checkThirdQuestionStatus,
+  getCurrentQuestionInfo,
+);
 
 module.exports = router;
