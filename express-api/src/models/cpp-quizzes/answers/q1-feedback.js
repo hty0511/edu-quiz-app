@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 
-const sequelize = require('../../../db/sequelize');
+const { sequelize } = require('../../../db/sequelize');
 const AbstractUserAnswer = require('./abstract');
 
 // UserAnswerQ1Feedback class extends the AbstractUserAnswer,

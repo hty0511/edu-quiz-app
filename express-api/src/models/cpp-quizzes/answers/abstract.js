@@ -75,7 +75,7 @@ class AbstractUserAnswer extends Model {
           },
           // Index for efficient query on creation date
           {
-            fields: ['createdAt'],
+            fields: ['created_at'],
           },
           ...(options.indexes || []),
         ],

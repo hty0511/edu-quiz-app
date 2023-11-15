@@ -1,4 +1,4 @@
-const sequelize = require('../../../db/sequelize');
+const { sequelize } = require('../../../db/sequelize');
 const AbstractUserAnswer = require('./abstract');
 
 // UserAnswerQ3 class extends the AbstractUserAnswer,
