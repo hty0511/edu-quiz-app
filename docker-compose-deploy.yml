@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  express-api:
+    build:
+      context: ./express-api
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=db
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}
+      - ADMIN_USERNAME=${ADMIN_USERNAME}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - SESSION_SECRET=${SESSION_SECRET}
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+
+  django-api:
+    build:
+      context: ./django-api
+    restart: always
+    command: >
+      uwsgi --http :8000 --workers 4 --master --enable-threads --module app.wsgi
+
+  proxy:
+    build:
+      context: ./proxy
+    restart: always
+    depends_on:
+      - express-api
+    ports:
+      - 80:8000
+
+volumes:
+  db-data:
