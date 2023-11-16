@@ -35,5 +35,17 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
 
+  django-api:
+    build:
+      context: ./django-api
+      args:
+        - DEV=true
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./django-api/app:/app
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+
 volumes:
   dev-db-data:
