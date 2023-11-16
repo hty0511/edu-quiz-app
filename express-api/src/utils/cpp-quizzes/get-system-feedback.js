@@ -22,7 +22,7 @@ const getSystemFeedback = async (req, question) => {
   } else {
     // Make a POST request to an external API for adaptive feedback
     try {
-      const response = await axios.post('http://django-api:8000/api/cpp-quizzes/feedback', {
+      const response = await axios.post('http://django-api:8000/api/cpp-quizzes/feedback/', {
         userAnswers: q1Record.answers,
         correctAnswers: question.correctAnswers,
         isCorrect: q1Record.isCorrect,
