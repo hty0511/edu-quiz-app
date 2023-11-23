@@ -19,7 +19,7 @@ const getPeerInteraction = async (req, question) => {
   if (!newestQ1Record) {
     peerInteraction = {
       peerAnswers: question.correctAnswers,
-      peerReasoning: 'trace code',
+      peerReasoning: question.reasoning,
     };
   } else {
     // Use the answers and reasoning from the most recent record

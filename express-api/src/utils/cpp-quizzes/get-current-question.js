@@ -21,7 +21,7 @@ const getCurrentQuestion = async (req) => {
       round: currentRound,
       number: QUESTION_MAPPING[currentQuestion],
     },
-    attributes: ['id', 'imageUrl', 'correctAnswers', 'answersCount'],
+    attributes: ['id', 'imageUrl', 'correctAnswers', 'answersCount', 'reasoning'],
   });
 
   return question;

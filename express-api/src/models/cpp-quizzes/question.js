@@ -31,6 +31,10 @@ Question.init(
       allowNull: false,
       field: 'answers_count',
     },
+    reasoning: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
     year: {
       type: DataTypes.INTEGER,
       allowNull: false,
