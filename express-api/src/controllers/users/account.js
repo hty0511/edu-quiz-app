@@ -1,5 +1,4 @@
 const User = require('../../models/users/user');
-const ClientError = require('../../errors/client-error');
 
 // Create a new user
 exports.createUser = async (req, res, next) => {
@@ -32,22 +31,6 @@ exports.logout = async (req, res, next) => {
     await req.user.save();
 
     res.send({ message: 'Logged out successfully.' });
-  } catch (error) {
-    next(error);
-  }
-};
-
-// Update the user's password
-exports.changePassword = async (req, res, next) => {
-  try {
-    const newPassword = req.body.password;
-
-    if (!newPassword) throw new ClientError('New password not provided.');
-
-    req.user.password = newPassword;
-    await req.user.save();
-
-    res.send({ message: 'Password updated successfully.' });
   } catch (error) {
     next(error);
   }

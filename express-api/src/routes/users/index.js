@@ -6,7 +6,6 @@ const {
   createUser,
   login,
   logout,
-  changePassword,
 } = require('../../controllers/users/account');
 
 const router = express.Router();
@@ -19,8 +18,5 @@ router.post('/login', login);
 
 // Route to handle user logout, requires authentication
 router.post('/logout', auth, logout);
-
-// Route to handle password change, requires authentication
-router.patch('/me/password', auth, changePassword);
 
 module.exports = router;
