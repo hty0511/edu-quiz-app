@@ -18,7 +18,6 @@ UserAnswerQ1.init(
   {
     sequelize,
     modelName: 'UserAnswerQ1',
-    tableName: 'user_answers_q1',
   },
 );
 

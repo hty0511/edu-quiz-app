@@ -10,7 +10,6 @@ UserAnswerQ2.init(
   {
     sequelize,
     modelName: 'UserAnswerQ2',
-    tableName: 'user_answers_q2',
   },
 );
 

@@ -13,7 +13,6 @@ Question.init(
     imageUrl: {
       type: DataTypes.STRING,
       allowNull: false,
-      field: 'image_url',
     },
     correctAnswers: {
       type: DataTypes.JSON,
@@ -24,23 +23,13 @@ Question.init(
           "2": Number,
           ...
         }`,
-      field: 'correct_answers',
     },
     answersCount: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      field: 'answers_count',
     },
     reasoning: {
       type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    year: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    semester: {
-      type: DataTypes.ENUM('FIRST', 'SECOND'),
       allowNull: false,
     },
     week: {
@@ -59,11 +48,10 @@ Question.init(
   {
     sequelize,
     modelName: 'Question',
-    tableName: 'questions',
-    timestamps: false,
+    underscored: true,
     indexes: [
       {
-        fields: ['year', 'semester', 'week', 'round', 'number'],
+        fields: ['week', 'round', 'number'],
       },
     ],
     hooks: {

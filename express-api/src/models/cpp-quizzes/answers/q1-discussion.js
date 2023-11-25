@@ -24,7 +24,6 @@ UserAnswerQ1Discussion.init(
           "isPeerFeedbackAgreed": Boolean,
           "feedbackHelpfulness": Number (e.g., 1, 2, 3, 4, 5)
         }`,
-      field: 'peer_interaction',
     },
     // User's reasoning for their revised answer after reviewing peer feedback for Question 1.
     reasoning: {
@@ -35,7 +34,6 @@ UserAnswerQ1Discussion.init(
   {
     sequelize,
     modelName: 'UserAnswerQ1Discussion',
-    tableName: 'user_answers_q1_discussion',
   },
 );
 

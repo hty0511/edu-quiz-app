@@ -49,13 +49,11 @@ User.init(
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
-      field: 'is_admin',
     },
   },
   {
     sequelize,
     modelName: 'User',
-    tableName: 'users',
     underscored: true,
     hooks: {
       // Hash the password before saving the user

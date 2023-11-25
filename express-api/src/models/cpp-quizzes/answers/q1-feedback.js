@@ -13,7 +13,6 @@ UserAnswerQ1Feedback.init(
     systemFeedback: {
       type: DataTypes.TEXT,
       allowNull: false,
-      field: 'system_feedback',
     },
     // User's reasoning for their revised answer after reviewing system feedback for Question 1.
     reasoning: {
@@ -24,7 +23,6 @@ UserAnswerQ1Feedback.init(
   {
     sequelize,
     modelName: 'UserAnswerQ1Feedback',
-    tableName: 'user_answers_q1_feedback',
   },
 );
 

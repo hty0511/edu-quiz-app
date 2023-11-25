@@ -7,26 +7,6 @@ class AbstractUserAnswer extends Model {
     super.init(
       {
         ...schema,
-        // Reference to the associated user
-        userId: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          field: 'user_id',
-          references: {
-            model: 'users',
-            key: 'id',
-          },
-        },
-        // Reference to the associated question
-        questionId: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          field: 'question_id',
-          references: {
-            model: 'questions',
-            key: 'id',
-          },
-        },
         // Submitted answers by the user
         answers: {
           type: DataTypes.JSON,
@@ -42,13 +22,11 @@ class AbstractUserAnswer extends Model {
         isCorrect: {
           type: DataTypes.BOOLEAN,
           allowNull: false,
-          field: 'is_correct',
         },
         // User's confidence level for the answer
         confidenceLevel: {
           type: DataTypes.INTEGER,
           allowNull: false,
-          field: 'confidence_level',
         },
         // Group categorization for the user
         group: {
@@ -63,9 +41,6 @@ class AbstractUserAnswer extends Model {
       },
       {
         ...options,
-        // Enable timestamps but disable update timestamp
-        timestamps: true,
-        updatedAt: false,
         underscored: true,
         indexes: [
           // Composite unique index to ensure one answer per user per question

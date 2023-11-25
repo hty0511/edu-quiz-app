@@ -7,23 +7,11 @@ class CppQuizProgress extends Model {}
 
 CppQuizProgress.init(
   {
-    // User reference
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true,
-      field: 'user_id',
-      references: {
-        model: 'users',
-        key: 'id',
-      },
-    },
     // Current round number
     currentRound: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 1,
-      field: 'current_round',
     },
     // Current question or stage within the round
     currentQuestion: {
@@ -36,7 +24,6 @@ CppQuizProgress.init(
       ),
       allowNull: false,
       defaultValue: 'Q1',
-      field: 'current_question',
     },
     // Group categorization for the user
     group: {
@@ -53,7 +40,6 @@ CppQuizProgress.init(
   {
     sequelize,
     modelName: 'CppQuizProgress',
-    tableName: 'cpp_quiz_progresses',
     underscored: true,
   },
 );
