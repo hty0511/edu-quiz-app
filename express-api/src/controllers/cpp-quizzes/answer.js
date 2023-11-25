@@ -1,4 +1,4 @@
-const { createUserAnswer } = require('../../utils/cpp-quizzes/create-user-answer');
+const createUserAnswer = require('../../utils/cpp-quizzes/create-user-answer');
 const UserAnswerQ1 = require('../../models/cpp-quizzes/answers/q1');
 const UserAnswerQ1Feedback = require('../../models/cpp-quizzes/answers/q1-feedback');
 const UserAnswerQ1Discussion = require('../../models/cpp-quizzes/answers/q1-discussion');
