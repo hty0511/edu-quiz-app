@@ -44,7 +44,7 @@ services:
     volumes:
       - ./django-api/app:/app
     command: >
-      uwsgi --http :8000 --workers 4 --master --enable-threads --module app.wsgi
+      uwsgi --http :8000 --workers 4 --master --enable-threads --lazy-apps --module app.wsgi
 
 volumes:
   dev-db-data:

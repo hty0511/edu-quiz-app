@@ -35,7 +35,7 @@ services:
       context: ./django-api
     restart: always
     command: >
-      uwsgi --http :8000 --workers 4 --master --enable-threads --module app.wsgi
+      uwsgi --http :8000 --workers 4 --master --enable-threads --lazy-apps --module app.wsgi
 
   proxy:
     build:
