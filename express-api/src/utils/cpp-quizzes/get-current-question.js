@@ -9,14 +9,12 @@ const QUESTION_MAPPING = {
 };
 
 const getCurrentQuestion = async (req) => {
-  const { year, semester, week } = req.globalSetting;
+  const { week } = req.globalSetting;
   const { currentRound, currentQuestion } = req.cppQuizProgress;
 
   // Retrieve the corresponding question from the database.
   const question = await Question.findOne({
     where: {
-      year,
-      semester,
       week,
       round: currentRound,
       number: QUESTION_MAPPING[currentQuestion],
