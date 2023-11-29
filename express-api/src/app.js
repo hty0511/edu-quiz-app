@@ -8,6 +8,7 @@ const { SESSION_SECRET } = require('./config');
 require('./models/associations'); // Setup model associations
 const usersRouter = require('./routes/users');
 const cppQuizzesRouter = require('./routes/cpp-quizzes');
+const reflectionsRouter = require('./routes/reflections');
 const errorHandler = require('./middleware/error-handler');
 
 const app = express();
@@ -32,6 +33,7 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Attach routers
 app.use('/api/users', usersRouter);
 app.use('/api/cpp-quizzes', cppQuizzesRouter);
+app.use('/api/reflections', reflectionsRouter);
 
 // Global error handler middleware
 app.use(errorHandler);
