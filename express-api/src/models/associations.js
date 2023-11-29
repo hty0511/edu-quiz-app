@@ -7,6 +7,7 @@ const UserAnswerQ1Feedback = require('./cpp-quizzes/answers/q1-feedback');
 const UserAnswerQ1Discussion = require('./cpp-quizzes/answers/q1-discussion');
 const UserAnswerQ2 = require('./cpp-quizzes/answers/q2');
 const UserAnswerQ3 = require('./cpp-quizzes/answers/q3');
+const Reflection = require('./reflections/reflection');
 
 // User associations
 User.hasOne(CppQuizProgress, {
@@ -30,6 +31,10 @@ User.hasMany(UserAnswerQ2, {
   onDelete: 'RESTRICT',
 });
 User.hasMany(UserAnswerQ3, {
+  foreignKey: { name: 'userId', allowNull: false },
+  onDelete: 'RESTRICT',
+});
+User.hasMany(Reflection, {
   foreignKey: { name: 'userId', allowNull: false },
   onDelete: 'RESTRICT',
 });
