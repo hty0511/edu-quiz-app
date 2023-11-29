@@ -26,6 +26,8 @@ const getSystemFeedback = async (req, question) => {
         userAnswers: q1Record.answers,
         correctAnswers: question.correctAnswers,
         isCorrect: q1Record.isCorrect,
+        userReasoning: q1Record.reasoning,
+        correctReasoning: question.reasoning,
         week: question.week,
         round: question.round,
         number: question.number,
