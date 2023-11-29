@@ -6,6 +6,7 @@ const YAML = require('yamljs');
 
 const { SESSION_SECRET } = require('./config');
 require('./models/associations'); // Setup model associations
+const globalSettingRouter = require('./routes/global-setting');
 const usersRouter = require('./routes/users');
 const cppQuizzesRouter = require('./routes/cpp-quizzes');
 const reflectionsRouter = require('./routes/reflections');
@@ -31,6 +32,7 @@ const swaggerDocument = YAML.load(join(__dirname, './docs/swagger/bundled.yaml')
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Attach routers
+app.use('/api/global-setting', globalSettingRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/cpp-quizzes', cppQuizzesRouter);
 app.use('/api/reflections', reflectionsRouter);
