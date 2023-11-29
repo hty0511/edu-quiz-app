@@ -29,7 +29,7 @@ const getSystemFeedback = async (req, question) => {
         week: question.week,
         round: question.round,
         number: question.number,
-      });
+      }, { timeout: 8000 });
 
       systemFeedback = response.data.systemFeedback;
     } catch (error) {
