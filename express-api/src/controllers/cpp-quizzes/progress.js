@@ -1,10 +1,28 @@
+const User = require('../../models/users/user');
 const CppQuizProgress = require('../../models/cpp-quizzes/progress');
 
 // Create a new CppQuizProgress entry
 exports.createCppQuizProgress = async (req, res, next) => {
   try {
-    const cppQuizProgress = new CppQuizProgress(req.body);
-    await cppQuizProgress.save();
+    // Find all users who don't have a CppQuizProgress
+    const usersWithoutCppQuizProgress = await User.findAll({
+      include: [{
+        model: CppQuizProgress,
+        required: false,
+      }],
+      where: {
+        '$CppQuizProgress.id$': null,
+      },
+    });
+
+    // Creating CppQuizProgress for each user without it
+    const createProgressPromises = usersWithoutCppQuizProgress.map(
+      (user) => CppQuizProgress.create({ userId: user.id }),
+    );
+
+    // Wait for all CppQuizProgress records to be created
+    await Promise.all(createProgressPromises);
+
     res.status(201).send({ message: 'CppQuizProgress created successfully.' });
   } catch (error) {
     next(error);
