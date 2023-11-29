@@ -12,7 +12,6 @@ Question.init(
   {
     imageUrl: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     correctAnswers: {
       type: DataTypes.JSON,
@@ -26,7 +25,6 @@ Question.init(
     },
     answersCount: {
       type: DataTypes.INTEGER,
-      allowNull: false,
     },
     reasoning: {
       type: DataTypes.TEXT,
@@ -55,10 +53,10 @@ Question.init(
       },
     ],
     hooks: {
-      // Format the imageUrl based on the year, semester, week, round, and question number.
+      // Format the imageUrl based on the week, round, and question number.
       // Count the number of correct answers for the question.
       beforeSave: (question) => {
-        question.imageUrl = `/${question.year}/${question.semester}/week${question.week}/r${question.round}/q${question.number}`;
+        question.imageUrl = `/week${question.week}/r${question.round}/q${question.number}`;
         question.answersCount = _.size(question.correctAnswers);
       },
     },
