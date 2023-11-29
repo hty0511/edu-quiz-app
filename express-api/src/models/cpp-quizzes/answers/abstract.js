@@ -26,6 +26,7 @@ class AbstractUserAnswer extends Model {
         // User's confidence level for the answer
         confidenceLevel: {
           type: DataTypes.INTEGER,
+          validate: { min: 0, max: 100 },
           allowNull: false,
         },
         // Group categorization for the user
