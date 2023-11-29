@@ -23,9 +23,7 @@ const createUserAnswer = async (req, UserAnswerModel, sessionFields = []) => {
   };
 
   const completeData = _.merge({}, userData, additionalData);
-  const modelInstance = new UserAnswerModel(completeData);
-
-  await modelInstance.save({ transaction: req.transaction });
+  await UserAnswerModel.create(completeData, { transaction: req.transaction });
 
   return { success: true, message: 'Answer created successfully.' };
 };

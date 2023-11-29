@@ -10,14 +10,11 @@ async function createAdmin() {
     await connectToDatabase();
 
     // Create a new User instance for the admin
-    const admin = new User({
+    await User.create({
       username: ADMIN_USERNAME,
       password: ADMIN_PASSWORD,
       isAdmin: true,
     });
-
-    // Save the admin user to the database
-    await admin.save();
 
     logger.info('Admin user created successfully!');
 

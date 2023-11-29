@@ -10,8 +10,7 @@ exports.createQuestion = async (req, res, next) => {
   try {
     checkCorrectAnswersFormat(req);
 
-    const question = new Question(req.body);
-    await question.save();
+    await Question.create(req.body);
 
     res.status(201).send({ message: 'Question created successfully.' });
   } catch (error) {
