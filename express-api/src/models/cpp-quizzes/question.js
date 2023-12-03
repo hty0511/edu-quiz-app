@@ -49,6 +49,7 @@ Question.init(
     underscored: true,
     indexes: [
       {
+        unique: true,
         fields: ['week', 'round', 'number'],
       },
     ],
