@@ -21,7 +21,7 @@ exports.createUserAnswerQ1 = async (req, res, next) => {
 
     await req.transaction.commit();
 
-    res.status(201).send({ message: result.message });
+    res.status(201).send({ message: result.message, next: req.cppQuizProgress.currentQuestion });
   } catch (error) {
     // If an error occurs, attempt to rollback the transaction.
     try {
