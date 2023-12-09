@@ -16,6 +16,8 @@ RUN useradd -m nodeuser && \
     chown -R nodeuser:nodeuser /app && \
     chmod -R 755 /app
 
+VOLUME ["/app/public/static"]
+
 USER nodeuser
 
 EXPOSE 3000

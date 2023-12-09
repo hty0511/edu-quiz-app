@@ -10,9 +10,13 @@ ENV API_PORT=3000
 
 USER root
 
-RUN touch /etc/nginx/conf.d/default.conf && \
+RUN mkdir -p /vol/express_static && \
+    chmod 755 /vol/express_static && \
+    touch /etc/nginx/conf.d/default.conf && \
     chown nginx:nginx /etc/nginx/conf.d/default.conf && \
     chmod +x /run.sh
+
+VOLUME ["/vol/express_static"]
 
 USER nginx
 

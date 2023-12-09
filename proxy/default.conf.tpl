@@ -5,6 +5,10 @@ upstream express_api {
 server {
     listen ${LISTEN_PORT};
 
+    location /static {
+        alias /vol/express_static;
+    }
+
     location /api {
         proxy_pass http://express_api;
         proxy_http_version 1.1;

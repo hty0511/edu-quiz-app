@@ -15,6 +15,8 @@ services:
       - ADMIN_USERNAME=${ADMIN_USERNAME}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
       - SESSION_SECRET=${SESSION_SECRET}
+    volumes:
+      - express-static:/app/public/static
     depends_on:
       - db
 
@@ -41,6 +43,8 @@ services:
     build:
       context: ./proxy
     restart: always
+    volumes:
+      - express-static:/vol/express_static
     depends_on:
       - express-api
     ports:
@@ -48,3 +52,4 @@ services:
 
 volumes:
   db-data:
+  express-static:
