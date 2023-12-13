@@ -57,7 +57,7 @@ Question.init(
       // Format the imageUrl based on the week, round, and question number.
       // Count the number of correct answers for the question.
       beforeSave: (question) => {
-        question.imageUrl = `/week${question.week}/r${question.round}/q${question.number}`;
+        question.imageUrl = `/week${question.week}/r${question.round}/q${question.number}.png`;
         question.answersCount = _.size(question.correctAnswers);
       },
     },

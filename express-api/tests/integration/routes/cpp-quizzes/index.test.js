@@ -799,7 +799,7 @@ describe('Create Question Tests', () => {
     });
     expect(question).not.toBeNull();
     expect(question.toJSON()).toMatchObject({
-      imageUrl: '/week1/r1/q1',
+      imageUrl: '/week1/r1/q1.png',
       correctAnswers: { 1: 1, 2: 2 },
       answersCount: 2,
       reasoning: 'question correct reasoning',
@@ -994,7 +994,7 @@ describe('Get Current Question Info Tests', () => {
 
   it('Should get Q2 info', async () => {
     await question.update({
-      imageUrl: 'week1/r1/q2',
+      imageUrl: 'week1/r1/q2.png',
       correctAnswers: { 1: 1, 2: 2 },
       answersCount: 2,
       reasoning: 'q2 reasoning',
@@ -1015,7 +1015,7 @@ describe('Get Current Question Info Tests', () => {
 
   it('Should get Q3 info', async () => {
     await question.update({
-      imageUrl: 'week1/r1/q3',
+      imageUrl: 'week1/r1/q3.png',
       correctAnswers: { 1: 1, 2: 2, 3: 3 },
       answersCount: 3,
       reasoning: 'q3 reasoning',
@@ -1037,7 +1037,7 @@ describe('Get Current Question Info Tests', () => {
   it('Should not get Q3 info (third question not open)', async () => {
     await globalSetting.update({ thirdQuestionStatus: 0 });
     await question.update({
-      imageUrl: 'week1/r1/q3',
+      imageUrl: 'week1/r1/q3.png',
       correctAnswers: { 1: 1, 2: 2, 3: 3 },
       answersCount: 3,
       reasoning: 'q3 reasoning',
