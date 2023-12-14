@@ -45,11 +45,19 @@ services:
     restart: always
     volumes:
       - express-static:/vol/express_static
+      - react-static:/vol/react_static
     depends_on:
       - express-api
     ports:
       - 80:8000
 
+  frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - react-static:/app/build
+
 volumes:
   db-data:
   express-static:
+  react-static:

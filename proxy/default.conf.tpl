@@ -5,7 +5,7 @@ upstream express_api {
 server {
     listen ${LISTEN_PORT};
 
-    location /static {
+    location /express-static {
         alias /vol/express_static;
     }
 
@@ -16,5 +16,10 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location / {
+        root /vol/react_static;
+        try_files $uri /index.html;
     }
 }
