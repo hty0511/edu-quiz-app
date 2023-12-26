@@ -5,16 +5,34 @@ info:
   version: 1.0.0
 
 paths:
-  /express-api/users/:
+  /api/global-setting:
+    $ref: './paths/change-global-setting.yaml'
+  /api/users:
     $ref: './paths/users/create.yaml'
-  /express-api/users/login:
+  /api/users/login:
     $ref: './paths/users/login.yaml'
-  /express-api/users/logout:
+  /api/users/logout:
     $ref: './paths/users/logout.yaml'
-  /express-api/users/me/password:
-    $ref: './paths/users/change-password.yaml'
-  /express-api/cpp-quizzes/progresses:
-    $ref: './paths/cpp-quizzes/progress.yaml'
+  /api/cpp-quizzes/progresses:
+    $ref: './paths/cpp-quizzes/create-progress.yaml'
+  /api/cpp-quizzes/progresses/reset-all:
+    $ref: './paths/cpp-quizzes/reset-all-progress.yaml'
+  /api/cpp-quizzes/answers/q1:
+    $ref: './paths/cpp-quizzes/create-q1-answer.yaml'
+  /api/cpp-quizzes/answers/q1-feedback:
+    $ref: './paths/cpp-quizzes/create-q1-feedback-answer.yaml'
+  /api/cpp-quizzes/answers/q1-discussion:
+    $ref: './paths/cpp-quizzes/create-q1-discussion-answer.yaml'
+  /api/cpp-quizzes/answers/q2:
+    $ref: './paths/cpp-quizzes/create-q2-answer.yaml'
+  /api/cpp-quizzes/answers/q3:
+    $ref: './paths/cpp-quizzes/create-q3-answer.yaml'
+  /api/cpp-quizzes/questions:
+    $ref: './paths/cpp-quizzes/create-question.yaml'
+  /api/cpp-quizzes/questions/current:
+    $ref: './paths/cpp-quizzes/get-current-question-info.yaml'
+  /api/reflections:
+    $ref: './paths/reflections/create.yaml'
 
 components:
   securitySchemes:
@@ -24,8 +42,24 @@ components:
       bearerFormat: JWT
 
   schemas:
+    GlobalSetting:
+      $ref: './components/schemas/global-setting.yaml'
     User:
       $ref: './components/schemas/user.yaml'
     CppQuizProgress:
       $ref: './components/schemas/cpp-quiz-progress.yaml'
+    Question:
+      $ref: './components/schemas/question.yaml'
+    UserAnswerQ1:
+      $ref: './components/schemas/q1-answer.yaml'
+    UserAnswerQ1Feedback:
+      $ref: './components/schemas/q1-feedback-answer.yaml'
+    UserAnswerQ1Discussion:
+      $ref: './components/schemas/q1-discussion-answer.yaml'
+    UserAnswerQ2:
+      $ref: './components/schemas/q2-answer.yaml'
+    UserAnswerQ3:
+      $ref: './components/schemas/q3-answer.yaml'
+    Reflection:
+      $ref: './components/schemas/reflection.yaml'
 # swagger-cli bundle -r main.yaml -o bundled.yaml -t yaml

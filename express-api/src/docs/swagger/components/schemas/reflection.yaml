@@ -1,0 +1,22 @@
+type: object
+properties:
+  userId:
+    type: integer
+    description: Reference to the user's ID.
+    nullable: false
+  week:
+    type: integer
+    description: The week number for which the reflection is written.
+    nullable: false
+  text:
+    type: string
+    description: The text content of the user's reflection.
+    nullable: false
+required:
+  - text
+uniqueKeys:
+  - - userId
+    - week
+indexes:
+  - fields: ['userId', 'week']
+    unique: true

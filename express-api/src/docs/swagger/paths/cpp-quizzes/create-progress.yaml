@@ -1,13 +1,13 @@
 post:
   tags:
-    - user
-  summary: Logout a user
-  operationId: logout
+    - cpp-quiz
+  summary: Creating CppQuizProgress for each user without it
+  operationId: createCppQuizProgress
   security:
     - BearerAuth: []
   responses:
-    '200':
-      description: Logged out successfully
+    '201':
+      description: CppQuizProgress created successfully
       content:
         application/json:
           schema:

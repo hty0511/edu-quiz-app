@@ -1,0 +1,14 @@
+type: object
+properties:
+  week:
+    type: integer
+    description: Current week number in the system.
+    nullable: false
+  roundStatus:
+    type: integer
+    description: Status of rounds. For instance, 2 indicates that both the first and second rounds are active.
+    nullable: false
+  thirdQuestionStatus:
+    type: integer
+    description: Open status of Q3 for each round. For instance, 2 means Q3 is open for both the first and second rounds.
+    nullable: false

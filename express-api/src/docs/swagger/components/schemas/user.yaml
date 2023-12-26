@@ -1,7 +1,4 @@
 type: object
-required:
-  - username
-  - password
 properties:
   username:
     type: string
@@ -24,3 +21,6 @@ properties:
     description: Flag indicating if the user is an admin.
     default: false
     nullable: false
+required:
+  - username
+  - password

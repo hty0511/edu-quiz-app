@@ -1,32 +1,36 @@
 post:
   tags:
-    - user
-  summary: Login a user
-  operationId: login
+    - cpp-quiz
+  summary: Create user answer q1 feedback
+  operationId: createUserAnswerQ1Feedback
+  security:
+    - BearerAuth: []
   requestBody:
-    required: true
-    description: User credentials
+    description: User answer q1 feedback information
     content:
       application/json:
         schema:
           type: object
           properties:
-            username:
+            answers:
+              type: object
+            reasoning:
               type: string
-            password:
-              type: string
+            confidenceLevel:
+              type: integer
+    required: true
   responses:
-    '200':
-      description: Login successful
+    '201':
+      description: User answer q1 feedback created successfully
       content:
         application/json:
           schema:
             type: object
             properties:
-              token:
+              message:
                 type: string
     '401':
-      description: Login failure
+      description: Unauthorized
       content:
         application/json:
           schema:

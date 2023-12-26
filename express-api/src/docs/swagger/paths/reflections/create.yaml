@@ -1,13 +1,23 @@
 post:
   tags:
-    - user
-  summary: Logout a user
-  operationId: logout
+    - reflection
+  summary: Create a reflection
+  operationId: createReflection
   security:
     - BearerAuth: []
+  requestBody:
+    description: Reflection information
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            text:
+              type: string
+    required: true
   responses:
-    '200':
-      description: Logged out successfully
+    '201':
+      description: Reflection created successfully
       content:
         application/json:
           schema:

@@ -1,32 +1,36 @@
 post:
   tags:
-    - user
-  summary: Create a user
-  operationId: createUser
+    - cpp-quiz
+  summary: Create a question
+  operationId: createQuestion
   security:
     - BearerAuth: []
   requestBody:
-    description: User information
+    description: Question information
     content:
       application/json:
         schema:
           type: object
           properties:
-            username:
+            correctAnswers:
+              type: object
+            reasoning:
               type: string
-            password:
-              type: string
+            week:
+              type: integer
+            round:
+              type: integer
+            number:
+              type: integer
     required: true
   responses:
     '201':
-      description: User created successfully
+      description: Question created successfully
       content:
         application/json:
           schema:
             type: object
             properties:
-              id:
-                type: integer
               message:
                 type: string
     '401':

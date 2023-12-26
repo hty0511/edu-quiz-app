@@ -4,7 +4,48 @@ info:
   description: Central documentation entry for the API.
   version: 1.0.0
 paths:
-  /express-api/users/:
+  /api/global-setting:
+    patch:
+      tags:
+        - global-setting
+      summary: Partially update the global settings
+      operationId: patchGlobalSettings
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: Global setting information
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                week:
+                  type: integer
+                roundStatus:
+                  type: integer
+                thirdQuestionStatus:
+                  type: integer
+        required: true
+      responses:
+        '200':
+          description: Global setting changed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/users:
     post:
       tags:
         - user
@@ -18,31 +59,11 @@ paths:
           application/json:
             schema:
               type: object
-              required:
-                - username
-                - password
               properties:
                 username:
                   type: string
-                  description: User's unique username.
-                  minLength: 3
-                  maxLength: 10
-                  nullable: false
-                  unique: true
                 password:
                   type: string
-                  description: User's password.
-                  minLength: 6
-                  maxLength: 20
-                  nullable: false
-                token:
-                  type: string
-                  description: Token for authentication.
-                isAdmin:
-                  type: boolean
-                  description: Flag indicating if the user is an admin.
-                  default: false
-                  nullable: false
         required: true
       responses:
         '201':
@@ -54,20 +75,8 @@ paths:
                 properties:
                   id:
                     type: integer
-                    description: The ID of the created user.
                   message:
                     type: string
-                    description: Confirmation message for user creation.
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    description: Error message for failed user creation.
         '401':
           description: Unauthorized
           content:
@@ -77,8 +86,7 @@ paths:
                 properties:
                   error:
                     type: string
-                    description: Unauthorized or invalid token provided.
-  /express-api/users/login:
+  /api/users/login:
     post:
       tags:
         - user
@@ -91,16 +99,11 @@ paths:
           application/json:
             schema:
               type: object
-              required:
-                - username
-                - password
               properties:
                 username:
                   type: string
-                  description: The username of the user.
                 password:
                   type: string
-                  description: The password of the user.
       responses:
         '200':
           description: Login successful
@@ -111,9 +114,8 @@ paths:
                 properties:
                   token:
                     type: string
-                    description: JWT token for the authenticated user.
-        '400':
-          description: Unable to login
+        '401':
+          description: Login failure
           content:
             application/json:
               schema:
@@ -121,8 +123,7 @@ paths:
                 properties:
                   error:
                     type: string
-                    description: Error message for failed login attempt.
-  /express-api/users/logout:
+  /api/users/logout:
     post:
       tags:
         - user
@@ -140,7 +141,6 @@ paths:
                 properties:
                   message:
                     type: string
-                    description: Confirmation message for user logout.
         '401':
           description: Unauthorized
           content:
@@ -150,118 +150,14 @@ paths:
                 properties:
                   error:
                     type: string
-                    description: Unauthorized or invalid token provided.
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    description: Description of the internal server error.
-  /express-api/users/me/password:
-    patch:
-      tags:
-        - user
-      summary: Change user password
-      operationId: changePassword
-      security:
-        - BearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                password:
-                  type: string
-                  description: The new password for the user.
-                  minLength: 6
-                  maxLength: 20
-      responses:
-        '200':
-          description: Password updated successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: Confirmation message for password update.
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    description: 'Description of the error, such as "Failed to update the password."'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    description: Unauthorized or invalid token provided.
-  /express-api/cpp-quizzes/progresses:
+  /api/cpp-quizzes/progresses:
     post:
       tags:
         - cpp-quiz
-      summary: Create a CppQuizProgress
+      summary: Creating CppQuizProgress for each user without it
       operationId: createCppQuizProgress
       security:
         - BearerAuth: []
-      requestBody:
-        required: true
-        description: CppQuizProgress information
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - userId
-              properties:
-                userId:
-                  type: integer
-                  description: Reference to the user's ID.
-                  nullable: false
-                  unique: true
-                currentRound:
-                  type: integer
-                  description: Current round of the quiz for the user.
-                  default: 1
-                  nullable: false
-                currentQuestion:
-                  type: string
-                  description: Current question or stage in the quiz.
-                  enum:
-                    - Q1
-                    - Q1_FEEDBACK
-                    - Q1_DISCUSSION
-                    - Q2
-                    - Q3
-                  default: Q1
-                  nullable: false
-                group:
-                  type: string
-                  description: The group to which the user belongs for the quiz.
-                  enum:
-                    - NOT_SPECIFIED
-                    - CONTROL
-                    - NON_ADAPTIVE
-                    - ADAPTIVE
-                    - EXCLUDED
-                  default: NOT_SPECIFIED
-                  nullable: false
       responses:
         '201':
           description: CppQuizProgress created successfully
@@ -272,17 +168,6 @@ paths:
                 properties:
                   message:
                     type: string
-                    description: Confirmation message for CppQuizProgress creation.
-        '400':
-          description: Failed to create CppQuizProgress
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    description: Error message for failed CppQuizProgress creation.
         '401':
           description: Unauthorized
           content:
@@ -292,7 +177,355 @@ paths:
                 properties:
                   error:
                     type: string
-                    description: Unauthorized or invalid token provided.
+  /api/cpp-quizzes/progresses/reset-all:
+    post:
+      tags:
+        - cpp-quiz
+      summary: Reset all CppQuizProgress
+      operationId: resetAllCppQuizProgress
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: All progresses reset successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/cpp-quizzes/answers/q1:
+    post:
+      tags:
+        - cpp-quiz
+      summary: Create user answer q1
+      operationId: createUserAnswerQ1
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: User answer q1 information
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                answers:
+                  type: object
+                reasoning:
+                  type: string
+                confidenceLevel:
+                  type: integer
+        required: true
+      responses:
+        '201':
+          description: User answer q1 created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  next:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/cpp-quizzes/answers/q1-feedback:
+    post:
+      tags:
+        - cpp-quiz
+      summary: Create user answer q1 feedback
+      operationId: createUserAnswerQ1Feedback
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: User answer q1 feedback information
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                answers:
+                  type: object
+                reasoning:
+                  type: string
+                confidenceLevel:
+                  type: integer
+        required: true
+      responses:
+        '201':
+          description: User answer q1 feedback created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/cpp-quizzes/answers/q1-discussion:
+    post:
+      tags:
+        - cpp-quiz
+      summary: Create user answer q1 discussion
+      operationId: createUserAnswerQ1Discussion
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: User answer q1 discussion information
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                peerInteraction:
+                  type: object
+                answers:
+                  type: object
+                reasoning:
+                  type: string
+                confidenceLevel:
+                  type: integer
+        required: true
+      responses:
+        '201':
+          description: User answer q1 discussion created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/cpp-quizzes/answers/q2:
+    post:
+      tags:
+        - cpp-quiz
+      summary: Create user answer q2
+      operationId: createUserAnswerQ2
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: User answer q2 information
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                answers:
+                  type: object
+                confidenceLevel:
+                  type: integer
+        required: true
+      responses:
+        '201':
+          description: User answer q2 created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/cpp-quizzes/answers/q3:
+    post:
+      tags:
+        - cpp-quiz
+      summary: Create user answer q3
+      operationId: createUserAnswerQ3
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: User answer q3 information
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                answers:
+                  type: object
+                confidenceLevel:
+                  type: integer
+        required: true
+      responses:
+        '201':
+          description: User answer q3 created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/cpp-quizzes/questions:
+    post:
+      tags:
+        - cpp-quiz
+      summary: Create a question
+      operationId: createQuestion
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: Question information
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                correctAnswers:
+                  type: object
+                reasoning:
+                  type: string
+                week:
+                  type: integer
+                round:
+                  type: integer
+                number:
+                  type: integer
+        required: true
+      responses:
+        '201':
+          description: Question created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/cpp-quizzes/questions/current:
+    get:
+      tags:
+        - cpp-quiz
+      summary: Get current question info
+      operationId: getCurrentQuestionInfo
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Get current question info successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  imageUrl:
+                    type: string
+                  answersCount:
+                    type: integer
+                  submitEndpoint:
+                    type: string
+                  systemFeedback:
+                    type: string
+                  peerInteraction:
+                    type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/reflections:
+    post:
+      tags:
+        - reflection
+      summary: Create a reflection
+      operationId: createReflection
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: Reflection information
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+        required: true
+      responses:
+        '201':
+          description: Reflection created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
 components:
   securitySchemes:
     BearerAuth:
@@ -300,11 +533,23 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    GlobalSetting:
+      type: object
+      properties:
+        week:
+          type: integer
+          description: Current week number in the system.
+          nullable: false
+        roundStatus:
+          type: integer
+          description: 'Status of rounds. For instance, 2 indicates that both the first and second rounds are active.'
+          nullable: false
+        thirdQuestionStatus:
+          type: integer
+          description: 'Open status of Q3 for each round. For instance, 2 means Q3 is open for both the first and second rounds.'
+          nullable: false
     User:
       type: object
-      required:
-        - username
-        - password
       properties:
         username:
           type: string
@@ -327,10 +572,11 @@ components:
           description: Flag indicating if the user is an admin.
           default: false
           nullable: false
+      required:
+        - username
+        - password
     CppQuizProgress:
       type: object
-      required:
-        - userId
       properties:
         userId:
           type: integer
@@ -344,7 +590,7 @@ components:
           nullable: false
         currentQuestion:
           type: string
-          description: Current question or stage in the quiz.
+          description: Current question of the quiz for the user.
           enum:
             - Q1
             - Q1_FEEDBACK
@@ -357,10 +603,362 @@ components:
           type: string
           description: The group to which the user belongs for the quiz.
           enum:
-            - NOT_SPECIFIED
             - CONTROL
             - NON_ADAPTIVE
             - ADAPTIVE
             - EXCLUDED
-          default: NOT_SPECIFIED
+          default: CONTROL
           nullable: false
+    Question:
+      type: object
+      properties:
+        imageUrl:
+          type: string
+          description: 'URL of the image related to the question. It is automatically generated based on week, round, and question number.'
+          example: /week1/r1/q1.png
+        correctAnswers:
+          type: object
+          description: 'JSON structure representing correct answers. Each key is a question identifier, and the value is a number.'
+          example:
+            '1': 42
+            '2': 7
+          nullable: false
+        answersCount:
+          type: integer
+          description: 'Count of correct answers, automatically calculated from the correctAnswers field.'
+          example: 2
+        reasoning:
+          type: string
+          description: Detailed reasoning or explanation for the question.
+          nullable: false
+        week:
+          type: integer
+          description: The week number associated with the question.
+          example: 1
+          nullable: false
+        round:
+          type: integer
+          description: The round number within the week associated with the question.
+          example: 1
+          nullable: false
+        number:
+          type: integer
+          description: The question number within the round.
+          example: 1
+          nullable: false
+      required:
+        - correctAnswers
+        - reasoning
+        - week
+        - round
+        - number
+      uniqueKeys:
+        - - week
+          - round
+          - number
+    UserAnswerQ1:
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: Reference to the user's ID.
+          nullable: false
+        questionId:
+          type: integer
+          description: Reference to the question's ID.
+          nullable: false
+        answers:
+          type: object
+          description: 'JSON structure representing user''s submitted answers. Each key is a answer identifier, and the value is a number.'
+          example:
+            '1': 42
+            '2': 7
+          nullable: false
+        isCorrect:
+          type: boolean
+          description: Indicator of whether the user's answer is correct.
+          nullable: false
+        reasoning:
+          type: string
+          description: The reasoning provided by the user for their answer
+          nullable: false
+        confidenceLevel:
+          type: integer
+          description: 'User''s confidence level in their answer, ranging from 0 to 100.'
+          minimum: 0
+          maximum: 100
+          nullable: false
+        group:
+          type: string
+          description: 'Group categorization for the user, indicating the type of user or experiment group.'
+          enum:
+            - CONTROL
+            - NON_ADAPTIVE
+            - ADAPTIVE
+            - EXCLUDED
+          nullable: false
+      required:
+        - answers
+        - reasoning
+        - confidenceLevel
+      uniqueKeys:
+        - - userId
+          - questionId
+      indexes:
+        - fields:
+            - userId
+            - questionId
+          unique: true
+        - fields:
+            - createdAt
+    UserAnswerQ1Feedback:
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: Reference to the user's ID.
+          nullable: false
+        questionId:
+          type: integer
+          description: Reference to the question's ID.
+          nullable: false
+        systemFeedback:
+          type: string
+          description: Feedback provided by the system based on the user's initial response
+          nullable: false
+        answers:
+          type: object
+          description: 'JSON structure representing user''s submitted answers. Each key is a answer identifier, and the value is a number.'
+          example:
+            '1': 42
+            '2': 7
+          nullable: false
+        isCorrect:
+          type: boolean
+          description: Indicator of whether the user's answer is correct.
+          nullable: false
+        reasoning:
+          type: string
+          description: The reasoning provided by the user for their answer
+          nullable: false
+        confidenceLevel:
+          type: integer
+          description: 'User''s confidence level in their answer, ranging from 0 to 100.'
+          minimum: 0
+          maximum: 100
+          nullable: false
+        group:
+          type: string
+          description: 'Group categorization for the user, indicating the type of user or experiment group.'
+          enum:
+            - CONTROL
+            - NON_ADAPTIVE
+            - ADAPTIVE
+            - EXCLUDED
+          nullable: false
+      required:
+        - answers
+        - reasoning
+        - confidenceLevel
+      uniqueKeys:
+        - - userId
+          - questionId
+      indexes:
+        - fields:
+            - userId
+            - questionId
+          unique: true
+        - fields:
+            - createdAt
+    UserAnswerQ1Discussion:
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: Reference to the user's ID.
+          nullable: false
+        questionId:
+          type: integer
+          description: Reference to the question's ID.
+          nullable: false
+        peerInteraction:
+          type: object
+          description: JSON structure contains detailed interaction with peer's response.
+          example:
+            peerAnswers:
+              '1': 7
+              '2': 30
+            peerReasoning: reasoning
+            isPeerFeedbackAgreed: false
+            feedbackHelpfulness: 3
+          nullable: false
+        answers:
+          type: object
+          description: 'JSON structure representing user''s submitted answers. Each key is a answer identifier, and the value is a number.'
+          example:
+            '1': 42
+            '2': 7
+          nullable: false
+        isCorrect:
+          type: boolean
+          description: Indicator of whether the user's answer is correct.
+          nullable: false
+        reasoning:
+          type: string
+          description: The reasoning provided by the user for their answer
+          nullable: false
+        confidenceLevel:
+          type: integer
+          description: 'User''s confidence level in their answer, ranging from 0 to 100.'
+          minimum: 0
+          maximum: 100
+          nullable: false
+        group:
+          type: string
+          description: 'Group categorization for the user, indicating the type of user or experiment group.'
+          enum:
+            - CONTROL
+            - NON_ADAPTIVE
+            - ADAPTIVE
+            - EXCLUDED
+          nullable: false
+      required:
+        - peerInteraction
+        - answers
+        - reasoning
+        - confidenceLevel
+      uniqueKeys:
+        - - userId
+          - questionId
+      indexes:
+        - fields:
+            - userId
+            - questionId
+          unique: true
+        - fields:
+            - createdAt
+    UserAnswerQ2:
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: Reference to the user's ID.
+          nullable: false
+        questionId:
+          type: integer
+          description: Reference to the question's ID.
+          nullable: false
+        answers:
+          type: object
+          description: 'JSON structure representing user''s submitted answers. Each key is a answer identifier, and the value is a number.'
+          example:
+            '1': 42
+            '2': 7
+          nullable: false
+        isCorrect:
+          type: boolean
+          description: Indicator of whether the user's answer is correct.
+          nullable: false
+        confidenceLevel:
+          type: integer
+          description: 'User''s confidence level in their answer, ranging from 0 to 100.'
+          minimum: 0
+          maximum: 100
+          nullable: false
+        group:
+          type: string
+          description: 'Group categorization for the user, indicating the type of user or experiment group.'
+          enum:
+            - CONTROL
+            - NON_ADAPTIVE
+            - ADAPTIVE
+            - EXCLUDED
+          nullable: false
+      required:
+        - answers
+        - confidenceLevel
+      uniqueKeys:
+        - - userId
+          - questionId
+      indexes:
+        - fields:
+            - userId
+            - questionId
+          unique: true
+        - fields:
+            - createdAt
+    UserAnswerQ3:
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: Reference to the user's ID.
+          nullable: false
+        questionId:
+          type: integer
+          description: Reference to the question's ID.
+          nullable: false
+        answers:
+          type: object
+          description: 'JSON structure representing user''s submitted answers. Each key is a answer identifier, and the value is a number.'
+          example:
+            '1': 42
+            '2': 7
+          nullable: false
+        isCorrect:
+          type: boolean
+          description: Indicator of whether the user's answer is correct.
+          nullable: false
+        confidenceLevel:
+          type: integer
+          description: 'User''s confidence level in their answer, ranging from 0 to 100.'
+          minimum: 0
+          maximum: 100
+          nullable: false
+        group:
+          type: string
+          description: 'Group categorization for the user, indicating the type of user or experiment group.'
+          enum:
+            - CONTROL
+            - NON_ADAPTIVE
+            - ADAPTIVE
+            - EXCLUDED
+          nullable: false
+      required:
+        - answers
+        - confidenceLevel
+      uniqueKeys:
+        - - userId
+          - questionId
+      indexes:
+        - fields:
+            - userId
+            - questionId
+          unique: true
+        - fields:
+            - createdAt
+    Reflection:
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: Reference to the user's ID.
+          nullable: false
+        week:
+          type: integer
+          description: The week number for which the reflection is written.
+          nullable: false
+        text:
+          type: string
+          description: The text content of the user's reflection.
+          nullable: false
+      required:
+        - text
+      uniqueKeys:
+        - - userId
+          - week
+      indexes:
+        - fields:
+            - userId
+            - week
+          unique: true

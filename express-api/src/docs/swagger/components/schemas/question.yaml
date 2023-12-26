@@ -1,0 +1,44 @@
+type: object
+properties:
+  imageUrl:
+    type: string
+    description: URL of the image related to the question. It is automatically generated based on week, round, and question number.
+    example: "/week1/r1/q1.png"
+  correctAnswers:
+    type: object
+    description: JSON structure representing correct answers. Each key is a question identifier, and the value is a number.
+    example: { "1": 42, "2": 7 }
+    nullable: false
+  answersCount:
+    type: integer
+    description: Count of correct answers, automatically calculated from the correctAnswers field.
+    example: 2
+  reasoning:
+    type: string
+    description: Detailed reasoning or explanation for the question.
+    nullable: false
+  week:
+    type: integer
+    description: The week number associated with the question.
+    example: 1
+    nullable: false
+  round:
+    type: integer
+    description: The round number within the week associated with the question.
+    example: 1
+    nullable: false
+  number:
+    type: integer
+    description: The question number within the round.
+    example: 1
+    nullable: false
+required:
+  - correctAnswers
+  - reasoning
+  - week
+  - round
+  - number
+uniqueKeys:
+  - - week
+    - round
+    - number

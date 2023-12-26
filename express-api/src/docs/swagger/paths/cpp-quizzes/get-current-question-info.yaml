@@ -1,0 +1,34 @@
+get:
+  tags:
+    - cpp-quiz
+  summary: Get current question info
+  operationId: getCurrentQuestionInfo
+  security:
+    - BearerAuth: []
+  responses:
+    '200':
+      description: Get current question info successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              imageUrl:
+                type: string
+              answersCount:
+                type: integer
+              submitEndpoint:
+                type: string
+              systemFeedback:
+                type: string
+              peerInteraction:
+                type: object
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string

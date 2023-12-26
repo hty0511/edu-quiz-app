@@ -1,0 +1,51 @@
+type: object
+properties:
+  userId:
+    type: integer
+    description: Reference to the user's ID.
+    nullable: false
+  questionId:
+    type: integer
+    description: Reference to the question's ID.
+    nullable: false
+  peerInteraction:
+    type: object
+    description: JSON structure contains detailed interaction with peer's response.
+    example: { "peerAnswers": { "1": 7, "2": 30 }, "peerReasoning": "reasoning", "isPeerFeedbackAgreed": false, "feedbackHelpfulness": 3 }
+    nullable: false
+  answers:
+    type: object
+    description: JSON structure representing user's submitted answers. Each key is a answer identifier, and the value is a number.
+    example: { "1": 42, "2": 7 }
+    nullable: false
+  isCorrect:
+    type: boolean
+    description: Indicator of whether the user's answer is correct.
+    nullable: false
+  reasoning:
+    type: string
+    description: The reasoning provided by the user for their answer
+    nullable: false
+  confidenceLevel:
+    type: integer
+    description: User's confidence level in their answer, ranging from 0 to 100.
+    minimum: 0
+    maximum: 100
+    nullable: false
+  group:
+    type: string
+    description: Group categorization for the user, indicating the type of user or experiment group.
+    enum: ['CONTROL', 'NON_ADAPTIVE', 'ADAPTIVE', 'EXCLUDED']
+    nullable: false
+required:
+  - peerInteraction
+  - answers
+  - reasoning
+  - confidenceLevel
+uniqueKeys:
+  - - userId
+    - questionId
+indexes:
+  - fields: ['userId', 'questionId']
+    unique: true
+  - fields: ['createdAt']

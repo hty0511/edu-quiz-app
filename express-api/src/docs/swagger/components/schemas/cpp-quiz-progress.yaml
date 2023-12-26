@@ -1,6 +1,4 @@
 type: object
-required:
-  - userId
 properties:
   userId:
     type: integer
@@ -14,13 +12,13 @@ properties:
     nullable: false
   currentQuestion:
     type: string
-    description: Current question or stage in the quiz.
+    description: Current question of the quiz for the user.
     enum: ['Q1', 'Q1_FEEDBACK', 'Q1_DISCUSSION', 'Q2', 'Q3']
     default: 'Q1'
     nullable: false
   group:
     type: string
     description: The group to which the user belongs for the quiz.
-    enum: ['NOT_SPECIFIED', 'CONTROL', 'NON_ADAPTIVE', 'ADAPTIVE', 'EXCLUDED']
-    default: 'NOT_SPECIFIED'
+    enum: ['CONTROL', 'NON_ADAPTIVE', 'ADAPTIVE', 'EXCLUDED']
+    default: 'CONTROL'
     nullable: false

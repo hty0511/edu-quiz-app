@@ -1,32 +1,32 @@
-post:
+patch:
   tags:
-    - user
-  summary: Create a user
-  operationId: createUser
+    - global-setting
+  summary: Partially update the global settings
+  operationId: patchGlobalSettings
   security:
     - BearerAuth: []
   requestBody:
-    description: User information
+    description: Global setting information
     content:
       application/json:
         schema:
           type: object
           properties:
-            username:
-              type: string
-            password:
-              type: string
+            week:
+              type: integer
+            roundStatus:
+              type: integer
+            thirdQuestionStatus:
+              type: integer
     required: true
   responses:
-    '201':
-      description: User created successfully
+    '200':
+      description: Global setting changed successfully
       content:
         application/json:
           schema:
             type: object
             properties:
-              id:
-                type: integer
               message:
                 type: string
     '401':
