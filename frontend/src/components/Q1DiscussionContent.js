@@ -5,7 +5,7 @@ import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel  } from "@m
 import ChatBubble from './ChatBubble';
 import { API_BASE_URL } from "../constants";
 
-export default function Q1Content({ setPageContent }) {
+export default function Q1DiscussionContent({ setPageContent }) {
   const [isLoading, setIsLoading] = React.useState(true);
   const [data, setData] = React.useState(null);
   const [answerFields, setAnswerFields] = React.useState('');

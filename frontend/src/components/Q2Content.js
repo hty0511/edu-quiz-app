@@ -4,7 +4,7 @@ import { CircularProgress, Card, CardContent, Typography, Grid, TextField, Butto
 import ChatBubble from './ChatBubble';
 import { API_BASE_URL } from "../constants";
 
-export default function Q1Content({ setPageContent }) {
+export default function Q2Content({ setPageContent }) {
   const [isLoading, setIsLoading] = React.useState(true);
   const [data, setData] = React.useState(null);
   const [answerFields, setAnswerFields] = React.useState('');
@@ -119,7 +119,7 @@ export default function Q1Content({ setPageContent }) {
               }}
             />
             <Box style={{ width: '50%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-              <ChatBubble text={`請依照cout輸出順序填寫答案以及寫下你的解題過程`} />
+              <ChatBubble text={`請依照cout輸出順序填寫答案`} />
               <CardMedia
                 component="img"
                 image="chatbot.png"
