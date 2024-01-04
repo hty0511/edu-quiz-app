@@ -13,12 +13,12 @@ class SystemFeedbackView(APIView):
     def post(self, request, *args, **kwargs):
         model = cpp_quiz_config.model
         bug_library = cpp_quiz_config.bug_library
-        week = request.data.week
-        round = request.data.round
+        week = request.data['week']
+        round = request.data['round']
 
-        if request.data.isCorrect:
-            user_reasoning = request.data.userReasoning
-            correct_reasoning = request.data.correctReasoning
+        if request.data['isCorrect']:
+            user_reasoning = request.data['userReasoning']
+            correct_reasoning = request.data['correctReasoning']
 
             embeddings = model.encode([user_reasoning, correct_reasoning], convert_to_tensor=True)
             cosine_scores = util.pytorch_cos_sim(embeddings[0], embeddings[1])
@@ -28,7 +28,7 @@ class SystemFeedbackView(APIView):
             else:
                 system_feedback = bug_library[f'week{week}'][f'r{round}']['default']
         else:
-            user_answers = request.data.userAnswers
+            user_answers = request.data['userAnswers']
 
             if json.dumps(user_answers) in bug_library[f'week{week}'][f'r{round}']:
                 system_feedback = bug_library[f'week{week}'][f'r{round}'][json.dumps(user_answers)]
