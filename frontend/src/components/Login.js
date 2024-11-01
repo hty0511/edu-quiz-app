@@ -40,6 +40,7 @@ export default function Login({ onLoginAttempt }) {
       .then((response) => {
         const token = response.data.token;
         sessionStorage.setItem("jwt", token);
+        sessionStorage.setItem("username", credentials.username);
         navigate("/");
       })
       .catch((error) => {

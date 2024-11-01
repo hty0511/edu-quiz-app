@@ -1,5 +1,6 @@
 require('./global-setting');
 const User = require('./users/user');
+require('./cpp-quizzes/group');
 const CppQuizProgress = require('./cpp-quizzes/progress');
 const Question = require('./cpp-quizzes/question');
 const UserAnswerQ1 = require('./cpp-quizzes/answers/q1');
@@ -7,6 +8,7 @@ const UserAnswerQ1Feedback = require('./cpp-quizzes/answers/q1-feedback');
 const UserAnswerQ1Discussion = require('./cpp-quizzes/answers/q1-discussion');
 const UserAnswerQ2 = require('./cpp-quizzes/answers/q2');
 const UserAnswerQ3 = require('./cpp-quizzes/answers/q3');
+const UserAnswerQ4 = require('./cpp-quizzes/answers/q4');
 const Reflection = require('./reflections/reflection');
 
 // User associations
@@ -34,6 +36,10 @@ User.hasMany(UserAnswerQ3, {
   foreignKey: { name: 'userId', allowNull: false },
   onDelete: 'RESTRICT',
 });
+User.hasMany(UserAnswerQ4, {
+  foreignKey: { name: 'userId', allowNull: false },
+  onDelete: 'RESTRICT',
+});
 User.hasMany(Reflection, {
   foreignKey: { name: 'userId', allowNull: false },
   onDelete: 'RESTRICT',
@@ -57,6 +63,10 @@ Question.hasMany(UserAnswerQ2, {
   onDelete: 'RESTRICT',
 });
 Question.hasMany(UserAnswerQ3, {
+  foreignKey: { name: 'questionId', allowNull: false },
+  onDelete: 'RESTRICT',
+});
+Question.hasMany(UserAnswerQ4, {
   foreignKey: { name: 'questionId', allowNull: false },
   onDelete: 'RESTRICT',
 });

@@ -17,6 +17,8 @@ paths:
     $ref: './paths/cpp-quizzes/create-progress.yaml'
   /api/cpp-quizzes/progresses/reset-all:
     $ref: './paths/cpp-quizzes/reset-all-progress.yaml'
+  /api/cpp-quizzes/progresses/check-finished:
+    $ref: './paths/cpp-quizzes/check-finished.yaml'
   /api/cpp-quizzes/answers/q1:
     $ref: './paths/cpp-quizzes/create-q1-answer.yaml'
   /api/cpp-quizzes/answers/q1-feedback:

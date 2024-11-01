@@ -29,6 +29,11 @@ class AbstractUserAnswer extends Model {
           validate: { min: 0, max: 100 },
           allowNull: false,
         },
+        videoClick: {
+          type: DataTypes.BOOLEAN,
+          allowNull: false,
+          defaultValue: false, // 默認值false
+        },
         // Group categorization for the user
         group: {
           type: DataTypes.ENUM(

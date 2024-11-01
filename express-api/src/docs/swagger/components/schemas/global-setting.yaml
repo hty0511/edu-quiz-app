@@ -12,3 +12,7 @@ properties:
     type: integer
     description: Open status of Q3 for each round. For instance, 2 means Q3 is open for both the first and second rounds.
     nullable: false
+  postLessonPracticeEnabled:
+    type: boolean
+    description: Indicates if the post-lesson practice is enabled.
+    nullable: false

@@ -1,10 +1,24 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import { CircularProgress, Card, CardContent, Typography, Button } from "@mui/material";
+import { CircularProgress, Card, CardContent, Typography, Button, Box } from "@mui/material";
 import { API_BASE_URL } from "../constants";
 
 export default function IntroContent({ setPageContent }) {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState(false);
+
+  const handleClickPostLessonPractice1 = () => {
+    setPageContent("q4-r1");
+  };
+
+  const handleClickPostLessonPractice2 = () => {
+    setPageContent("q4-r2");
+  };
+
+  const handleClickPostLessonPractice3 = () => {
+    setPageContent("q4-r3");
+  };
 
   const handleClick = async () => {
     setIsLoading(true);
@@ -27,6 +41,10 @@ export default function IntroContent({ setPageContent }) {
       });
   };
 
+  const historyClick = () => {
+    navigate(`/cpp-quiz/history`);
+  }
+
   if (isLoading) {
     return <CircularProgress />;
   }
@@ -40,7 +58,29 @@ export default function IntroContent({ setPageContent }) {
         <Typography variant="body2" gutterBottom>
           每節課有三題題目，請同學踴躍作答
         </Typography>
-        <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={handleClick}>開始</Button>
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            mt: 1
+          }}
+        >
+          <Button variant="text" onClick={handleClickPostLessonPractice1}>課後練習 1</Button>
+          <Button variant="text" onClick={handleClickPostLessonPractice2}>課後練習 2</Button>
+          <Button variant="text" onClick={handleClickPostLessonPractice3}>課後練習 3</Button>
+        </Box>
+
+        <Button color="primary" sx={{ mt: 1 }} onClick={historyClick}>歷史答題記錄</Button>
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}
+        >
+          <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={handleClick}>開始</Button>
+        </Box>
       </CardContent>
     </Card>
   );

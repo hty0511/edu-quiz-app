@@ -25,6 +25,8 @@ paths:
                   type: integer
                 thirdQuestionStatus:
                   type: integer
+                postLessonPracticeEnabled:
+                  type: boolean
         required: true
       responses:
         '200':
@@ -195,6 +197,41 @@ paths:
                 properties:
                   message:
                     type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/cpp-quizzes/progresses/check-finished:
+    get:
+      tags:
+        - cpp-quiz
+      summary: Get finished count info
+      operationId: checkFinished
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Get finished count info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  q1Finished:
+                    type: integer
+                  q1adFinished:
+                    type: integer
+                  q2Finished:
+                    type: integer
+                  q3Finished:
+                    type: integer
+                  q4Finished:
+                    type: integer
         '401':
           description: Unauthorized
           content:
@@ -547,6 +584,10 @@ components:
         thirdQuestionStatus:
           type: integer
           description: 'Open status of Q3 for each round. For instance, 2 means Q3 is open for both the first and second rounds.'
+          nullable: false
+        postLessonPracticeEnabled:
+          type: boolean
+          description: Indicates if the post-lesson practice is enabled.
           nullable: false
     User:
       type: object

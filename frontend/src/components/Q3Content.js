@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import { CircularProgress, Card, CardContent, Typography, Grid, TextField, Button, CardMedia, Box } from "@mui/material";
 import ChatBubble from './ChatBubble';
-import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../constants";
 
 export default function Q3Content({ setPageContent }) {
@@ -11,8 +10,6 @@ export default function Q3Content({ setPageContent }) {
   const [answerFields, setAnswerFields] = React.useState('');
   const [confidenceLevelField, setConfidenceLevelField] = React.useState('');
   const [error, setError] = React.useState(false);
-
-  const navigate = useNavigate();
 
   React.useEffect(() => {
     const token = sessionStorage.getItem("jwt");
@@ -91,7 +88,7 @@ export default function Q3Content({ setPageContent }) {
         }
       )
       .then((response) => {
-        navigate("/");
+        setPageContent("q3-explanation");
       })
       .catch((err) => {
         console.error("提交錯誤:", err);

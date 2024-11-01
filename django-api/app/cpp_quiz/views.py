@@ -30,9 +30,11 @@ class SystemFeedbackView(APIView):
         else:
             user_answers = request.data['userAnswers']
 
+            system_feedback = '你的答案錯誤! '
+
             if json.dumps(user_answers) in bug_library[f'week{week}'][f'r{round}']:
-                system_feedback = bug_library[f'week{week}'][f'r{round}'][json.dumps(user_answers)]
+                system_feedback += bug_library[f'week{week}'][f'r{round}'][json.dumps(user_answers)]
             else:
-                system_feedback = bug_library[f'week{week}'][f'r{round}']['default']
+                system_feedback += bug_library[f'week{week}'][f'r{round}']['default']
 
         return JsonResponse({"systemFeedback": system_feedback})

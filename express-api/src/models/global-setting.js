@@ -21,6 +21,12 @@ GlobalSetting.init(
       allowNull: false,
       comment: 'Open status of Q3 for each round. For instance, 2 means Q3 is open for both the first and second rounds.',
     },
+    postLessonPracticeEnabled: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+      comment: 'Indicates if the post-lesson practice is enabled.',
+    },
   },
   {
     sequelize,

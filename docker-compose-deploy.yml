@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 
 services:
   express-api:
@@ -24,20 +24,23 @@ services:
     image: postgres:13-alpine
     restart: always
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
-      - db-data:/var/lib/postgresql/data
+      # 資料庫名字要改掉(要新增自己的資料庫)
+      # - db-112-cs106:/var/lib/postgresql/data
+      - db-113-cs106:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
 
-  django-api:
-    build:
-      context: ./django-api
-    restart: always
-    command: >
-      uwsgi --http :8000 --workers 4 --master --enable-threads --lazy-apps --module app.wsgi
+  # #適性化系統
+  # django-api:
+  #   build:
+  #     context: ./django-api
+  #   restart: always
+  #   command: >
+  #     uwsgi --http :8000 --workers 4 --master --enable-threads --lazy-apps --module app.wsgi
 
   proxy:
     build:
@@ -58,6 +61,7 @@ services:
       - react-static:/app/build
 
 volumes:
-  db-data:
+  # db-112-cs106:
+  db-113-cs106:
   express-static:
   react-static:

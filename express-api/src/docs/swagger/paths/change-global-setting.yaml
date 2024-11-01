@@ -18,6 +18,8 @@ patch:
               type: integer
             thirdQuestionStatus:
               type: integer
+            postLessonPracticeEnabled:
+              type: boolean
     required: true
   responses:
     '200':

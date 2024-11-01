@@ -19,17 +19,23 @@ const {
   createUserAnswerQ1Discussion,
   createUserAnswerQ2,
   createUserAnswerQ3,
+  createUserAnswerQ4,
 } = require('../../controllers/cpp-quizzes/answer');
 const {
   createQuestion,
   getCurrentQuestionInfo,
+  getQ4Info,
+  getCorrectAnswers,
 } = require('../../controllers/cpp-quizzes/question');
+const { getHistory } = require('../../controllers/cpp-quizzes/history');
+const { checkFinished } = require('../../controllers/cpp-quizzes/check');
 
 const router = express.Router();
 
 // Progress routes
 router.post('/progresses', auth, checkAdmin, createCppQuizProgress);
 router.post('/progresses/reset-all', auth, checkAdmin, resetAllCppQuizProgress);
+router.get('/progresses/check-finished', auth, checkFinished);
 
 // Answer routes
 router.post(
@@ -38,9 +44,9 @@ router.post(
   checkRoundStatus,
   checkCurrentQuestion,
   checkAnswersFormat,
-  assignRandomGroup,
   initTransaction,
-  createUserAnswerQ1,
+  assignRandomGroup,
+  createUserAnswerQ1
 );
 router.post(
   '/answers/q1-feedback',
@@ -49,7 +55,7 @@ router.post(
   checkCurrentQuestion,
   checkAnswersFormat,
   initTransaction,
-  createUserAnswerQ1Feedback,
+  createUserAnswerQ1Feedback
 );
 router.post(
   '/answers/q1-discussion',
@@ -59,7 +65,7 @@ router.post(
   checkAnswersFormat,
   checkPeerInteractionFormat,
   initTransaction,
-  createUserAnswerQ1Discussion,
+  createUserAnswerQ1Discussion
 );
 router.post(
   '/answers/q2',
@@ -68,7 +74,7 @@ router.post(
   checkCurrentQuestion,
   checkAnswersFormat,
   initTransaction,
-  createUserAnswerQ2,
+  createUserAnswerQ2
 );
 router.post(
   '/answers/q3',
@@ -78,8 +84,9 @@ router.post(
   checkCurrentQuestion,
   checkAnswersFormat,
   initTransaction,
-  createUserAnswerQ3,
+  createUserAnswerQ3
 );
+router.post('/answers/q4', auth, createUserAnswerQ4);
 
 // Question routes
 router.post('/questions', auth, checkAdmin, createQuestion);
@@ -88,7 +95,11 @@ router.get(
   auth,
   checkRoundStatus,
   checkThirdQuestionStatus,
-  getCurrentQuestionInfo,
+  getCurrentQuestionInfo
 );
+router.get('/questions/q4-info', auth, getQ4Info);
+router.get('/questions/correct-answers', auth, getCorrectAnswers);
+
+router.get('/history', auth, getHistory);
 
 module.exports = router;

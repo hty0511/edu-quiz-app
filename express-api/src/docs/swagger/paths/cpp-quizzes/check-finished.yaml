@@ -1,0 +1,34 @@
+get:
+  tags:
+    - cpp-quiz
+  summary: Get finished count info
+  operationId: checkFinished
+  security:
+    - BearerAuth: []
+  responses:
+    '200':
+      description: Get finished count info
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              q1Finished:
+                type: integer
+              q1adFinished:
+                type: integer
+              q2Finished:
+                type: integer
+              q3Finished:
+                type: integer
+              q4Finished:
+                type: integer
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string

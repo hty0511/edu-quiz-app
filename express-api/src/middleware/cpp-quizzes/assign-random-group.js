@@ -1,14 +1,23 @@
-const _ = require('lodash');
+const Group = require('../../models/cpp-quizzes/group');
 
-// Middleware to assign a random group to the user's quiz progress unless they are excluded.
-const assignRandomGroup = (req, res, next) => {
+const assignRandomGroup = async (req, res, next) => {
   try {
-    if (req.cppQuizProgress.group !== 'EXCLUDED') {
-      const groupArray = ['CONTROL', 'NON_ADAPTIVE', 'ADAPTIVE'];
-      const randomGroup = _.sample(groupArray);
+    const group = await Group.findOne({
+      where: {
+        round: req.cppQuizProgress.currentRound,
+      },
+      order: [
+        ['userCount', 'ASC'],
+        ['id', 'DESC'],
+      ],
+      transaction: req.transaction,
+      lock: req.transaction.LOCK.UPDATE,
+    });
 
-      req.cppQuizProgress.group = randomGroup;
-    }
+    group.userCount += 1;
+    await group.save({ transaction: req.transaction });
+
+    req.cppQuizProgress.group = group.groupName;
 
     next();
   } catch (error) {
